@@ -2605,7 +2605,7 @@ namespace FreeImageAPI
 			}
 			throw new NotSupportedException("The type of the image is not supported");
 		}
-
+#if SYSTEM_DRAWING_ENABLED
 		/// <summary>
 		/// Makes the default transparent color transparent for this <see cref="FreeImageBitmap"/>.
 		/// </summary>
@@ -2627,6 +2627,7 @@ namespace FreeImageAPI
 			EnsureNotDisposed();
 			throw new System.NotImplementedException();
 		}
+#endif
 
 		/// <summary>
 		/// Sets the <see cref="System.Drawing.Color"/> of the specified pixel in this <see cref="FreeImageBitmap"/>.
@@ -2684,7 +2685,7 @@ namespace FreeImageAPI
 			FreeImage.SetResolutionX(dib, (uint)xDpi);
 			FreeImage.SetResolutionY(dib, (uint)yDpi);
 		}
-
+#if SYSTEM_DRAWING_ENABLED
 		/// <summary>
 		/// This function is not yet implemented.
 		/// </summary>
@@ -2714,7 +2715,7 @@ namespace FreeImageAPI
 		{
 			throw new NotImplementedException();
 		}
-
+#endif
 		/// <summary>
 		/// Converts this <see cref="FreeImageBitmap"/> into a different color depth.
 		/// The parameter <paramref name="bpp"/> specifies color depth, greyscale conversion
@@ -4235,22 +4236,22 @@ namespace FreeImageAPI
 		/// </summary>
 		private void LoadFromStream(Stream stream, FREE_IMAGE_FORMAT format, FREE_IMAGE_LOAD_FLAGS flags)
 		{
-			FIMULTIBITMAP mdib = FreeImage.OpenMultiBitmapFromStream(stream, ref format, flags);
-			if (mdib.IsNull)
-			{
-				throw new Exception(ErrorLoadingBitmap);
-			}
-			try
-			{
-				frameCount = FreeImage.GetPageCount(mdib);
-			}
-			finally
-			{
-				if (!FreeImage.CloseMultiBitmapEx(ref mdib))
-				{
-					throw new Exception(ErrorUnloadBitmap);
-				}
-			}
+            //FIMULTIBITMAP mdib = FreeImage.OpenMultiBitmapFromStream(stream, ref format, flags);
+            //if (mdib.IsNull)
+            //{
+            //    throw new Exception(ErrorLoadingBitmap);
+            //}
+            //try
+            //{
+            //    frameCount = FreeImage.GetPageCount(mdib);
+            //}
+            //finally
+            //{
+            //    if (!FreeImage.CloseMultiBitmapEx(ref mdib))
+            //    {
+            //        throw new Exception(ErrorUnloadBitmap);
+            //    }
+            //}
 
 			dib = FreeImage.LoadFromStream(stream, flags, ref format);
 			if (dib.IsNull)
