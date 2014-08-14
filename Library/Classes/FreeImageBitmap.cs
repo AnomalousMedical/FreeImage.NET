@@ -48,10 +48,9 @@ using System.Diagnostics;
 namespace FreeImageAPI
 {
 	/// <summary>
-	/// Encapsulates a FreeImage-bitmap.
+	/// Encapsulates a FreeImage-bitmap. This has been modified to simplify it.
 	/// </summary>
-	[Serializable, Guid("64a4c935-b757-499c-ab8c-6110316a9e51")]
-	public class FreeImageBitmap : MarshalByRefObject, ICloneable, IDisposable, IEnumerable, ISerializable
+	public class FreeImageBitmap : IDisposable, IEnumerable
 	{
 		#region Fields
 
@@ -72,12 +71,6 @@ namespace FreeImageAPI
 		/// </summary>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		private object lockObject = new object();
-
-		/// <summary>
-		/// Holds information used by SaveAdd() methods.
-		/// </summary>
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private SaveInformation saveInformation = new SaveInformation();
 
 		/// <summary>
 		/// The stream that this instance was loaded from or
@@ -543,7 +536,6 @@ namespace FreeImageAPI
 				throw new FileNotFoundException("filename");
 			}
 
-			saveInformation.filename = filename;
 			stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
 			disposeStream = true;
 			LoadFromStream(stream, format, flags);
@@ -2224,10 +2216,6 @@ namespace FreeImageAPI
 			{
 				throw new Exception("Unable to save bitmap");
 			}
-
-			saveInformation.filename = filename;
-			saveInformation.format = format;
-			saveInformation.saveFlags = flags;
 		}
 
 		/// <summary>
@@ -2262,165 +2250,6 @@ namespace FreeImageAPI
 			{
 				throw new Exception("Unable to save bitmap");
 			}
-
-			saveInformation.filename = null;
-		}
-
-		/// <summary>
-		/// Adds a frame to the file specified in a previous call to the <see cref="Save(String)"/>
-		/// method.
-		/// </summary>
-		/// <exception cref="InvalidOperationException">
-		/// This instance has not been saved to a file using Save(...) before.</exception>
-		public void SaveAdd()
-		{
-			SaveAdd(this);
-		}
-
-		/// <summary>
-		/// Adds a frame to the file specified in a previous call to the <see cref="Save(String)"/> method.
-		/// </summary>
-		/// <param name="insertPosition">The position at which the frame should be inserted.</param>
-		/// <exception cref="InvalidOperationException">
-		/// This instance has not yet been saved to a file using the Save(...) method.</exception>
-		/// <exception cref="ArgumentOutOfRangeException"><paramref name="insertPosition"/> is out of range.</exception>
-		public void SaveAdd(int insertPosition)
-		{
-			SaveAdd(this, insertPosition);
-		}
-
-		/// <summary>
-		/// Adds a frame to the file specified in a previous call to the <see cref="Save(String)"/> method.
-		/// </summary>
-		/// <param name="bitmap">A <see cref="FreeImageBitmap"/> that contains the frame to add.</param>
-		/// <exception cref="InvalidOperationException">
-		/// This instance has not yet been saved to a file using the Save(...) method.</exception>
-		public void SaveAdd(FreeImageBitmap bitmap)
-		{
-			if (saveInformation.filename == null)
-			{
-				throw new InvalidOperationException("This operation requires a previous call of Save().");
-			}
-
-			SaveAdd(
-				saveInformation.filename,
-				bitmap,
-				saveInformation.format,
-				saveInformation.loadFlags,
-				saveInformation.saveFlags);
-		}
-
-		/// <summary>
-		/// Adds a frame to the file specified in a previous call to the <see cref="Save(String)"/> method.
-		/// </summary>
-		/// <param name="bitmap">A <see cref="FreeImageBitmap"/> that contains the frame to add.</param>
-		/// <param name="insertPosition">The position at which the frame should be inserted.</param>
-		/// <exception cref="InvalidOperationException">
-		/// This instance has not yet been saved to a file using the Save(...) method.</exception>
-		/// <exception cref="ArgumentOutOfRangeException"><paramref name="insertPosition"/> is out of range.</exception>
-		public void SaveAdd(FreeImageBitmap bitmap, int insertPosition)
-		{
-			if (saveInformation.filename == null)
-			{
-				throw new InvalidOperationException("This operation requires a previous call of Save().");
-			}
-
-			SaveAdd(
-				saveInformation.filename,
-				bitmap,
-				insertPosition,
-				saveInformation.format,
-				saveInformation.loadFlags,
-				saveInformation.saveFlags);
-		}
-
-		/// <summary>
-		/// Adds a frame to the file specified.
-		/// </summary>
-		/// <param name="filename">File to add this frame to.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="filename"/> is a null reference.</exception>
-		/// <exception cref="FileNotFoundException"><paramref name="filename"/> does not exist.</exception>
-		/// <exception cref="Exception">Saving the image has failed.</exception>
-		public void SaveAdd(string filename)
-		{
-			SaveAdd(
-				filename,
-				this,
-				FREE_IMAGE_FORMAT.FIF_UNKNOWN,
-				FREE_IMAGE_LOAD_FLAGS.DEFAULT,
-				FREE_IMAGE_SAVE_FLAGS.DEFAULT);
-		}
-
-		/// <summary>
-		/// Adds a frame to the file specified.
-		/// </summary>
-		/// <param name="filename">File to add this frame to.</param>
-		/// <param name="insertPosition">The position at which the frame should be inserted.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="filename"/> is a null reference.</exception>
-		/// <exception cref="FileNotFoundException"><paramref name="filename"/> does not exist.</exception>
-		/// <exception cref="Exception">Saving the image has failed.</exception>
-		/// <exception cref="ArgumentOutOfRangeException"><paramref name="insertPosition"/> is out of range.</exception>
-		public void SaveAdd(string filename, int insertPosition)
-		{
-			SaveAdd(
-				filename,
-				this,
-				insertPosition,
-				FREE_IMAGE_FORMAT.FIF_UNKNOWN,
-				FREE_IMAGE_LOAD_FLAGS.DEFAULT,
-				FREE_IMAGE_SAVE_FLAGS.DEFAULT);
-		}
-
-		/// <summary>
-		/// Adds a frame to the file specified using the specified parameters.
-		/// </summary>
-		/// <param name="filename">File to add this frame to.</param>
-		/// <param name="format">Format of the image.</param>
-		/// <param name="loadFlags">Flags to enable or disable plugin-features.</param>
-		/// <param name="saveFlags">Flags to enable or disable plugin-features.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="filename"/> is a null reference.</exception>
-		/// <exception cref="FileNotFoundException"><paramref name="filename"/> does not exist.</exception>
-		/// <exception cref="Exception">Saving the image has failed.</exception>
-		public void SaveAdd(
-			string filename,
-			FREE_IMAGE_FORMAT format,
-			FREE_IMAGE_LOAD_FLAGS loadFlags,
-			FREE_IMAGE_SAVE_FLAGS saveFlags)
-		{
-			SaveAdd(
-				filename,
-				this,
-				format,
-				loadFlags,
-				saveFlags);
-		}
-
-		/// <summary>
-		/// Adds a frame to the file specified using the specified parameters.
-		/// </summary>
-		/// <param name="filename">File to add this frame to.</param>
-		/// <param name="insertPosition">The position at which the frame should be inserted.</param>
-		/// <param name="format">Format of the image.</param>
-		/// <param name="loadFlags">Flags to enable or disable plugin-features.</param>
-		/// <param name="saveFlags">Flags to enable or disable plugin-features.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="filename"/> is a null reference.</exception>
-		/// <exception cref="FileNotFoundException"><paramref name="filename"/> does not exist.</exception>
-		/// <exception cref="Exception">Saving the image has failed.</exception>
-		/// <exception cref="ArgumentOutOfRangeException"><paramref name="insertPosition"/> is out of range.</exception>
-		public void SaveAdd(
-			string filename,
-			int insertPosition,
-			FREE_IMAGE_FORMAT format,
-			FREE_IMAGE_LOAD_FLAGS loadFlags,
-			FREE_IMAGE_SAVE_FLAGS saveFlags)
-		{
-			SaveAdd(
-				filename,
-				this,
-				insertPosition,
-				format,
-				loadFlags,
-				saveFlags);
 		}
 
 		/// <summary>
@@ -3888,123 +3717,6 @@ namespace FreeImageAPI
 		}
 
 		/// <summary>
-		/// Adds a specified frame to the file specified using the specified parameters.
-		/// Use this method to save selected frames from an to a multiple-frame image.
-		/// </summary>
-		/// <param name="filename">File to add this frame to.</param>
-		/// <param name="bitmap">A <see cref="FreeImageBitmap"/> that contains the frame to add.</param>
-		/// <param name="format">Format of the image.</param>
-		/// <param name="loadFlags">Flags to enable or disable plugin-features.</param>
-		/// <param name="saveFlags">Flags to enable or disable plugin-features.</param>
-		/// <exception cref="ArgumentNullException">
-		/// <paramref name="filename"/> or <paramref name="bitmap"/> is null.
-		/// </exception>
-		/// <exception cref="FileNotFoundException"><paramref name="filename"/> does not exist.</exception>
-		/// <exception cref="Exception">Saving the image failed.</exception>
-		public static void SaveAdd(
-			string filename,
-			FreeImageBitmap bitmap,
-			FREE_IMAGE_FORMAT format,
-			FREE_IMAGE_LOAD_FLAGS loadFlags,
-			FREE_IMAGE_SAVE_FLAGS saveFlags)
-		{
-			if (filename == null)
-			{
-				throw new ArgumentNullException("filename");
-			}
-			if (!File.Exists(filename))
-			{
-				throw new FileNotFoundException("filename");
-			}
-			if (bitmap == null)
-			{
-				throw new ArgumentNullException("bitmap");
-			}
-			bitmap.EnsureNotDisposed();
-
-			FIBITMAP dib = bitmap.dib;
-			if (dib.IsNull)
-				throw new ArgumentNullException("bitmap");
-
-			FIMULTIBITMAP mpBitmap =
-				FreeImage.OpenMultiBitmapEx(filename, ref format, loadFlags, false, false, true);
-
-			if (mpBitmap.IsNull)
-				throw new Exception(ErrorLoadingBitmap);
-
-			FreeImage.AppendPage(mpBitmap, bitmap.dib);
-
-			if (!FreeImage.CloseMultiBitmap(mpBitmap, saveFlags))
-				throw new Exception(ErrorUnloadBitmap);
-		}
-
-		/// <summary>
-		/// Adds a specified frame to the file specified using the specified parameters.
-		/// Use this method to save selected frames from an image to a multiple-frame image.
-		/// </summary>
-		/// <param name="filename">File to add this frame to.</param>
-		/// <param name="bitmap">A <see cref="FreeImageBitmap"/> that contains the frame to add.</param>
-		/// <param name="insertPosition">The position of the inserted frame.</param>
-		/// <param name="format">Format of the image.</param>
-		/// <param name="loadFlags">Flags to enable or disable plugin-features.</param>
-		/// <param name="saveFlags">Flags to enable or disable plugin-features.</param>
-		/// <exception cref="ArgumentNullException">
-		/// <paramref name="filename"/> or <paramref name="bitmap"/> is null.
-		/// </exception>
-		/// <exception cref="FileNotFoundException"><paramref name="filename"/> does not exist.</exception>
-		/// <exception cref="Exception">Saving the image failed.</exception>
-		/// <exception cref="ArgumentOutOfRangeException"><paramref name="insertPosition"/> is out of range.</exception>
-		public static void SaveAdd(
-			string filename,
-			FreeImageBitmap bitmap,
-			int insertPosition,
-			FREE_IMAGE_FORMAT format,
-			FREE_IMAGE_LOAD_FLAGS loadFlags,
-			FREE_IMAGE_SAVE_FLAGS saveFlags)
-		{
-			if (filename == null)
-			{
-				throw new ArgumentNullException("filename");
-			}
-			if (!File.Exists(filename))
-			{
-				throw new FileNotFoundException("filename");
-			}
-			if (bitmap == null)
-			{
-				throw new ArgumentNullException("bitmap");
-			}
-			if (insertPosition < 0)
-			{
-				throw new ArgumentOutOfRangeException("insertPosition");
-			}
-			bitmap.EnsureNotDisposed();
-
-			FIBITMAP dib = bitmap.dib;
-			if (dib.IsNull)
-				throw new ArgumentNullException("bitmap");
-
-			FIMULTIBITMAP mpBitmap =
-				FreeImage.OpenMultiBitmapEx(filename, ref format, loadFlags, false, false, true);
-
-			if (mpBitmap.IsNull)
-				throw new Exception(ErrorLoadingBitmap);
-
-			int pageCount = FreeImage.GetPageCount(mpBitmap);
-
-			if (insertPosition > pageCount)
-				throw new ArgumentOutOfRangeException("insertPosition");
-
-			if (insertPosition == pageCount)
-				FreeImage.AppendPage(mpBitmap, bitmap.dib);
-			else
-				FreeImage.InsertPage(mpBitmap, insertPosition, bitmap.dib);
-
-			if (!FreeImage.CloseMultiBitmap(mpBitmap, saveFlags))
-				throw new Exception(ErrorUnloadBitmap);
-		}
-
-		/// <summary>
 		/// Returns a new instance of the <see cref="PropertyItem"/> class which
 		/// has no public accessible constructor.
 		/// </summary>
@@ -4092,7 +3804,6 @@ namespace FreeImageAPI
 				throw new Exception(ErrorLoadingBitmap);
 			}
 
-			saveInformation.loadFlags = flags;
 			originalFormat = format;
 			AddMemoryPressure();
 		}
@@ -4100,41 +3811,6 @@ namespace FreeImageAPI
 		#endregion
 
 		#region Interfaces
-
-		/// <summary>
-		/// Helper class to store informations for <see cref="FreeImageBitmap.SaveAdd()"/>.
-		/// </summary>
-		private sealed class SaveInformation : ICloneable
-		{
-			public string filename;
-			public FREE_IMAGE_FORMAT format = FREE_IMAGE_FORMAT.FIF_UNKNOWN;
-			public FREE_IMAGE_LOAD_FLAGS loadFlags = FREE_IMAGE_LOAD_FLAGS.DEFAULT;
-			public FREE_IMAGE_SAVE_FLAGS saveFlags = FREE_IMAGE_SAVE_FLAGS.DEFAULT;
-
-			public object Clone()
-			{
-				return base.MemberwiseClone();
-			}
-		}
-
-		/// <summary>
-		/// Creates a deep copy of this <see cref="FreeImageBitmap"/>.
-		/// </summary>
-		/// <returns>A deep copy of this <see cref="FreeImageBitmap"/>.</returns>
-		public object Clone()
-		{
-			EnsureNotDisposed();
-			FreeImageBitmap result = null;
-			FIBITMAP newDib = FreeImage.Clone(dib);
-			if (!dib.IsNull)
-			{
-				result = new FreeImageBitmap(newDib);
-				result.saveInformation = (SaveInformation)saveInformation.Clone();
-				result.tag = tag;
-				result.originalFormat = originalFormat;
-			}
-			return result;
-		}
 
 		/// <summary>
 		/// Performs application-defined tasks associated with freeing,
@@ -4177,7 +3853,6 @@ namespace FreeImageAPI
 			}
 
 			tag = null;
-			saveInformation = null;
 
 			// Clean up unmanaged resources
 			UnloadDib();
@@ -4191,20 +3866,6 @@ namespace FreeImageAPI
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetScanlines().GetEnumerator();
-		}
-
-		void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
-		{
-			EnsureNotDisposed();
-			using (MemoryStream memory = new MemoryStream(DataSize))
-			{
-				if (!FreeImage.SaveToStream(dib, memory, FREE_IMAGE_FORMAT.FIF_TIFF, FREE_IMAGE_SAVE_FLAGS.TIFF_LZW))
-				{
-					throw new SerializationException();
-				}
-				memory.Capacity = (int)memory.Length;
-				info.AddValue("Bitmap Data", memory.GetBuffer());
-			}
 		}
 
 		#endregion
