@@ -94,20 +94,6 @@ namespace FreeImageAPI
 		private bool disposeStream;
 
 		/// <summary>
-		/// The number of frames contained by a mutlipage bitmap.
-		/// Default value is 1 and only changed if needed.
-		/// </summary>
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private int frameCount = 1;
-
-		/// <summary>
-		/// The index of the loaded frame.
-		/// Default value is 0 and only changed if needed.
-		/// </summary>
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private int frameIndex = 0;
-
-		/// <summary>
 		/// Format of the sourceimage.
 		/// </summary>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -1671,18 +1657,6 @@ namespace FreeImageAPI
 		}
 
 		/// <summary>
-		/// Gets the number of frames in this <see cref="FreeImageBitmap"/>.
-		/// </summary>
-		public int FrameCount
-		{
-			get
-			{
-				EnsureNotDisposed();
-				return frameCount;
-			}
-		}
-
-		/// <summary>
 		/// Gets the ICCProfile structure of this <see cref="FreeImageBitmap"/>.
 		/// </summary>
 		public FIICCPROFILE ICCProfile
@@ -2450,77 +2424,6 @@ namespace FreeImageAPI
 		}
 
 		/// <summary>
-		/// Selects the frame specified by the index.
-		/// </summary>
-		/// <param name="frameIndex">The index of the active frame.</param>
-		/// <exception cref="ArgumentOutOfRangeException">
-		/// <paramref name="frameIndex"/> is out of range.</exception>
-		/// <exception cref="Exception">The operation failed.</exception>
-		/// <exception cref="InvalidOperationException">The source of the bitmap is not available.
-		/// </exception>
-		public void SelectActiveFrame(int frameIndex)
-		{
-			EnsureNotDisposed();
-			if ((frameIndex < 0) || (frameIndex >= frameCount))
-			{
-				throw new ArgumentOutOfRangeException("frameIndex");
-			}
-
-			if (frameIndex != this.frameIndex)
-			{
-				if (stream == null)
-				{
-					throw new InvalidOperationException("No source available.");
-				}
-
-				FREE_IMAGE_FORMAT format = originalFormat;
-				FIMULTIBITMAP mdib = FreeImage.OpenMultiBitmapFromStream(stream, ref format, saveInformation.loadFlags);
-				if (mdib.IsNull)
-					throw new Exception(ErrorLoadingBitmap);
-
-				try
-				{
-					if (frameIndex >= FreeImage.GetPageCount(mdib))
-					{
-						throw new ArgumentOutOfRangeException("frameIndex");
-					}
-
-					FIBITMAP newDib = FreeImage.LockPage(mdib, frameIndex);
-					if (newDib.IsNull)
-					{
-						throw new Exception(ErrorLoadingFrame);
-					}
-
-					try
-					{
-						FIBITMAP clone = FreeImage.Clone(newDib);
-						if (clone.IsNull)
-						{
-							throw new Exception(ErrorCreatingBitmap);
-						}
-						ReplaceDib(clone);
-					}
-					finally
-					{
-						if (!newDib.IsNull)
-						{
-							FreeImage.UnlockPage(mdib, newDib, false);
-						}
-					}
-				}
-				finally
-				{
-					if (!FreeImage.CloseMultiBitmapEx(ref mdib))
-					{
-						throw new Exception(ErrorUnloadBitmap);
-					}
-				}
-
-				this.frameIndex = frameIndex;
-			}
-		}
-
-		/// <summary>
 		/// Creates a GDI bitmap object from this <see cref="FreeImageBitmap"/>.
 		/// </summary>
 		/// <returns>A handle to the GDI bitmap object that this method creates.</returns>
@@ -2605,29 +2508,6 @@ namespace FreeImageAPI
 			}
 			throw new NotSupportedException("The type of the image is not supported");
 		}
-#if SYSTEM_DRAWING_ENABLED
-		/// <summary>
-		/// Makes the default transparent color transparent for this <see cref="FreeImageBitmap"/>.
-		/// </summary>
-		public void MakeTransparent()
-		{
-			EnsureNotDisposed();
-			MakeTransparent(Color.Transparent);
-		}
-
-		/// <summary>
-		/// Makes the specified color transparent for this <see cref="FreeImageBitmap"/>.
-		/// </summary>
-		/// <param name="transparentColor">The <see cref="System.Drawing.Color"/> structure that represents
-		/// the color to make transparent.</param>
-		/// <exception cref="NotImplementedException">
-		/// This method is not implemented.</exception>
-		public void MakeTransparent(Color transparentColor)
-		{
-			EnsureNotDisposed();
-			throw new System.NotImplementedException();
-		}
-#endif
 
 		/// <summary>
 		/// Sets the <see cref="System.Drawing.Color"/> of the specified pixel in this <see cref="FreeImageBitmap"/>.
@@ -2685,37 +2565,7 @@ namespace FreeImageAPI
 			FreeImage.SetResolutionX(dib, (uint)xDpi);
 			FreeImage.SetResolutionY(dib, (uint)yDpi);
 		}
-#if SYSTEM_DRAWING_ENABLED
-		/// <summary>
-		/// This function is not yet implemented.
-		/// </summary>
-		/// <exception cref="NotImplementedException">
-		/// This method is not implemented.</exception>
-		public BitmapData LockBits(Rectangle rect, ImageLockMode flags, PixelFormat format)
-		{
-			throw new NotImplementedException();
-		}
 
-		/// <summary>
-		/// This function is not yet implemented.
-		/// </summary>
-		/// <exception cref="NotImplementedException">
-		/// This method is not implemented.</exception>
-		public BitmapData LockBits(Rectangle rect, ImageLockMode flags, PixelFormat format, BitmapData bitmapData)
-		{
-			throw new NotImplementedException();
-		}
-
-		/// <summary>
-		/// This function is not yet implemented.
-		/// </summary>
-		/// <exception cref="NotImplementedException">
-		/// This method is not implemented.</exception>
-		public void UnlockBits(BitmapData bitmapdata)
-		{
-			throw new NotImplementedException();
-		}
-#endif
 		/// <summary>
 		/// Converts this <see cref="FreeImageBitmap"/> into a different color depth.
 		/// The parameter <paramref name="bpp"/> specifies color depth, greyscale conversion
@@ -4236,23 +4086,6 @@ namespace FreeImageAPI
 		/// </summary>
 		private void LoadFromStream(Stream stream, FREE_IMAGE_FORMAT format, FREE_IMAGE_LOAD_FLAGS flags)
 		{
-            //FIMULTIBITMAP mdib = FreeImage.OpenMultiBitmapFromStream(stream, ref format, flags);
-            //if (mdib.IsNull)
-            //{
-            //    throw new Exception(ErrorLoadingBitmap);
-            //}
-            //try
-            //{
-            //    frameCount = FreeImage.GetPageCount(mdib);
-            //}
-            //finally
-            //{
-            //    if (!FreeImage.CloseMultiBitmapEx(ref mdib))
-            //    {
-            //        throw new Exception(ErrorUnloadBitmap);
-            //    }
-            //}
-
 			dib = FreeImage.LoadFromStream(stream, flags, ref format);
 			if (dib.IsNull)
 			{
