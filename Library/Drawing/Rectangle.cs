@@ -44,6 +44,30 @@ namespace FreeImageAPI
             }
         }
 
+        public int X
+        {
+            get
+            {
+                return left;
+            }
+            set
+            {
+                left = value;
+            }
+        }
+
+        public int Y
+        {
+            get
+            {
+                return top;
+            }
+            set
+            {
+                top = value;
+            }
+        }
+
         public int Width
         {
             get
