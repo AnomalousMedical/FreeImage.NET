@@ -122,7 +122,6 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +147,15 @@
     </Compile>
     <Compile Include="Classes\StreamWrapper.cs" />
     <Compile Include="Delegates.cs" />
+    <Compile Include="Drawing\Color.cs" />
+    <Compile Include="Drawing\ImageFlags.cs" />
+    <Compile Include="Drawing\PixelFormat.cs" />
+    <Compile Include="Drawing\Point.cs" />
+    <Compile Include="Drawing\Rectangle.cs" />
+    <Compile Include="Drawing\RectangleF.cs" />
+    <Compile Include="Drawing\RotateFlipType.cs" />
+    <Compile Include="Drawing\Size.cs" />
+    <Compile Include="Drawing\SizeF.cs" />
     <Compile Include="Enumerations\DisposalMethodType.cs" />
     <Compile Include="Enumerations\FREE_IMAGE_COLOR_OPTIONS.cs" />
     <Compile Include="Enumerations\FREE_IMAGE_DITHER.cs" />
