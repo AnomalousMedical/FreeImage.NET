@@ -86,7 +86,7 @@
     <Optimize>true</Optimize>
     <FileAlignment>512</FileAlignment>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>none</ErrorReport>
     <DebugSymbols>true</DebugSymbols>
