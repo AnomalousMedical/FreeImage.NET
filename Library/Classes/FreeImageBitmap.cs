@@ -1878,54 +1878,6 @@ namespace FreeImageAPI
 		}
 
 		/// <summary>
-		/// Saves this <see cref="FreeImageBitmap"/> to the specified file.
-		/// </summary>
-		/// <param name="filename">A string that contains the name of the file to which
-		/// to save this <see cref="FreeImageBitmap"/>.</param>
-		/// <exception cref="ArgumentException"><paramref name="filename"/> is null or empty.</exception>
-		/// <exception cref="Exception">Saving the image failed.</exception>
-		public void Save(string filename)
-		{
-			Save(filename, FREE_IMAGE_FORMAT.FIF_UNKNOWN, FREE_IMAGE_SAVE_FLAGS.DEFAULT);
-		}
-
-		/// <summary>
-		/// Saves this <see cref="FreeImageBitmap"/> to the specified file in the specified format.
-		/// </summary>
-		/// <param name="filename">A string that contains the name of the file to which
-		/// to save this <see cref="FreeImageBitmap"/>.</param>
-		/// <param name="format">An <see cref="FREE_IMAGE_FORMAT"/> that specifies the format of the saved image.</param>
-		/// <exception cref="ArgumentException"><paramref name="filename"/> is null or empty.</exception>
-		/// <exception cref="Exception">Saving the image failed.</exception>
-		public void Save(string filename, FREE_IMAGE_FORMAT format)
-		{
-			Save(filename, format, FREE_IMAGE_SAVE_FLAGS.DEFAULT);
-		}
-
-		/// <summary>
-		/// Saves this <see cref="FreeImageBitmap"/> to the specified file in the specified format
-		/// using the specified saving flags.
-		/// </summary>
-		/// <param name="filename">A string that contains the name of the file to which
-		/// to save this <see cref="FreeImageBitmap"/>.</param>
-		/// <param name="format">An <see cref="FREE_IMAGE_FORMAT"/> that specifies the format of the saved image.</param>
-		/// <param name="flags">Flags to enable or disable plugin-features.</param>
-		/// <exception cref="ArgumentException"><paramref name="filename"/> is null or empty.</exception>
-		/// <exception cref="Exception">Saving the image failed.</exception>
-		public void Save(string filename, FREE_IMAGE_FORMAT format, FREE_IMAGE_SAVE_FLAGS flags)
-		{
-			EnsureNotDisposed();
-			if (string.IsNullOrEmpty(filename))
-			{
-				throw new ArgumentException("filename");
-			}
-			if (!FreeImage.SaveEx(dib, filename, format, flags))
-			{
-				throw new Exception("Unable to save bitmap");
-			}
-		}
-
-		/// <summary>
 		/// Saves this <see cref="FreeImageBitmap"/> to the specified stream in the specified format.
 		/// </summary>
 		/// <param name="stream">The stream where this <see cref="FreeImageBitmap"/> will be saved.</param>
