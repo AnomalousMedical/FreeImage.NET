@@ -68,10 +68,10 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>..\Debug\FreeImageNET.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\FreeImageNET.XML</DocumentationFile>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <FileAlignment>512</FileAlignment>
     <DebugType>full</DebugType>
@@ -80,9 +80,9 @@
     <ErrorReport>none</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <OutputPath>..\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>..\Release\FreeImageNET.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\FreeImageNET.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <FileAlignment>512</FileAlignment>
     <DebugType>pdbonly</DebugType>
