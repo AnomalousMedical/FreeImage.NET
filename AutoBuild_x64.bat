@@ -18,6 +18,7 @@ set Variables=-D OGREDEPS_BUILD_AMD_QBS=0 ^
 set ThisFolder=%~dp0
 set RootDependencyFolder=%ThisFolder%..\
 set BuildCommand="C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe"
+set CurrentDirectory=%CD%
 
 set BuildPath="%~dp0%BuildFolder%"
 set SrcPath="%~dp0%SrcFolder%"
@@ -32,4 +33,4 @@ cmake -G "%GeneratorName%" %Variables% %SrcPath%
 %BuildCommand% "%SolutionName%" /property:Configuration=Debug;Platform=%Platform%
 %BuildCommand% "%SolutionName%" /property:Configuration=Release;Platform=%Platform%
 
-cd ..
+cd %CurrentDirectory%
