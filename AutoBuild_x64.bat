@@ -17,7 +17,7 @@ set Variables=-D OGREDEPS_BUILD_AMD_QBS=0 ^
 ::Less likely to need to change these.
 set ThisFolder=%~dp0
 set RootDependencyFolder=%ThisFolder%..\
-set BuildCommand="C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe"
+set BuildCommand="C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe" /m
 set CurrentDirectory=%CD%
 
 set BuildPath="%~dp0%BuildFolder%"
