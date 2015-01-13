@@ -1,0 +1,37 @@
+#!/bin/sh
+
+#Discover some stuff about where we are.
+START_PATH=$(pwd)
+THIS_FOLDER=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+#Configuration
+GENERATOR_NAME=Xcode
+SOURCE_FOLDER=$THIS_FOLDER/../Ogre/depsrc
+BUILD_FOLDER=$THIS_FOLDER/OSXBuild
+CMAKE_SETTINGS="-D CMAKE_OSX_ARCHITECTURES=i386 \
+-D CMAKE_OSX_DEPLOYMENT_TARGET=10.7 \
+-D OGREDEPS_BUILD_AMD_QBS=0 \
+-D OGREDEPS_BUILD_CG=0
+-D OGREDEPS_BUILD_FREETYPE=0 \
+-D OGREDEPS_BUILD_NVIDIA_NVAPI=0 \
+-D OGREDEPS_BUILD_OIS=0 \
+-D OGREDEPS_BUILD_ZLIB=0 \
+-D OGREDEPS_BUILD_ZZIPLIB=0 \
+-D OGREDEPS_INSTALL_DEV=0 \
+-D OGREDEPS_BUILD_FREEIMAGE_DYNAMIC=1"
+
+#Do Build
+#Make sure the build directories are empty by removing them
+rm -r "$BUILD_FOLDER"
+
+#Create the framework
+mkdir "$BUILD_FOLDER"
+cd "$BUILD_FOLDER"
+
+cmake -G "$GENERATOR_NAME" $CMAKE_SETTINGS $SOURCE_FOLDER
+
+#Build with XCode
+xcodebuild -configuration Release SHARED_PRECOMPS_DIR="$BUILD_FOLDER/SharedTmpPCH"
+
+#Finish up
+cd "$START_PATH"
