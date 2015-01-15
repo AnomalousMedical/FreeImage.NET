@@ -1,7 +1,7 @@
 ::Configuration Settings
 set GeneratorName=Visual Studio 12 Win64
 set Platform=x64
-set SrcFolder=..\Ogre\depsrc
+set SrcFolder=..\OgreDeps\src
 set BuildFolder=Win64Build
 set SolutionName=OGREDEPS.sln
 set Variables=-D OGREDEPS_BUILD_AMD_QBS=0 ^
