@@ -176,6 +176,7 @@
     <Compile Include="Enumerations\FREE_IMAGE_COMPARE_FLAGS.cs" />
     <Compile Include="Enumerations\FREE_IMAGE_METADATA_COPY.cs" />
     <Compile Include="Enumerations\MD_SEARCH_FLAGS.cs" />
+    <Compile Include="MonoPInvokeCallbackAttribute.cs" />
     <Compile Include="Structs\BITMAP.cs" />
     <Compile Include="Structs\BITMAPINFO.cs" />
     <Compile Include="Structs\BITMAPINFOHEADER.cs" />
