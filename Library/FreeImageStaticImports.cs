@@ -47,7 +47,11 @@ namespace FreeImageAPI
 		/// <summary>
 		/// Filename of the FreeImage library.
 		/// </summary>
+		#if FULL_AOT_COMPILE
+		private const string FreeImageLibrary = "__Internal";
+		#else
 		private const string FreeImageLibrary = "FreeImage";
+		#endif
 
 		/// <summary>
 		/// Number of bytes to shift left within a 4 byte block.
@@ -498,9 +502,9 @@ namespace FreeImageAPI
 		/// <param name="extension">A string witha comma sperated list of extensions. f.e: "pl,pl2,pl4"</param>
 		/// <param name="regexpr">A regular expression used to identify the bitmap.</param>
 		/// <returns>The format idientifier assigned by FreeImage.</returns>
-		[DllImport(FreeImageLibrary, CharSet = CharSet.Ansi, EntryPoint = "FreeImage_RegisterExternalPlugin")]
-		public static extern FREE_IMAGE_FORMAT RegisterExternalPlugin(string path,
-			string format, string description, string extension, string regexpr);
+//		[DllImport(FreeImageLibrary, CharSet = CharSet.Ansi, EntryPoint = "FreeImage_RegisterExternalPlugin")]
+//		public static extern FREE_IMAGE_FORMAT RegisterExternalPlugin(string path,
+//			string format, string description, string extension, string regexpr);
 
 		/// <summary>
 		/// Retrieves the number of FREE_IMAGE_FORMAT identifiers being currently registered.
