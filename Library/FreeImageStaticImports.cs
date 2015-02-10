@@ -46,12 +46,12 @@ namespace FreeImageAPI
 
 		/// <summary>
 		/// Filename of the FreeImage library.
-		/// </summary>
-		#if FULL_AOT_COMPILE
+        /// </summary>
+#if STATIC_LINK
 		private const string FreeImageLibrary = "__Internal";
-		#else
-		private const string FreeImageLibrary = "FreeImage";
-		#endif
+#else
+        private const string FreeImageLibrary = "FreeImage";
+#endif
 
 		/// <summary>
 		/// Number of bytes to shift left within a 4 byte block.
