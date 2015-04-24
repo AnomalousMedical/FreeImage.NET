@@ -1,7 +1,7 @@
 ::Configuration Settings
 set GeneratorName=NMake Makefiles
 set SrcFolder=..\OgreDeps\src
-set BuildFolder=AndroidBuild
+set BuildFolder=AndroidBuildx86
 
 ::Less likely to need to change these.
 set ThisFolder=%~dp0
@@ -26,7 +26,7 @@ set Variables=-D OGREDEPS_BUILD_AMD_QBS=0 ^
 -DLIBRARY_OUTPUT_PATH_ROOT=%BuildPath% ^
 -DCMAKE_BUILD_TYPE=Release ^
 -DANDROID_NATIVE_API_LEVEL=9 ^
--DANDROID_ABI=armeabi-v7a
+-DANDROID_ABI=x86
 
 call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\Tools\VsDevCmd.bat"
 
