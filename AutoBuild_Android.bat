@@ -26,7 +26,7 @@ set Variables=-D OGREDEPS_BUILD_AMD_QBS=0 ^
 -DLIBRARY_OUTPUT_PATH_ROOT=%BuildPath% ^
 -DCMAKE_BUILD_TYPE=Release ^
 -DANDROID_NATIVE_API_LEVEL=9 ^
--DANDROID_STL=gnustl_shared ^
+-DANDROID_STL=gnustl_static ^
 -DANDROID_ABI=armeabi-v7a
 
 call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\Tools\VsDevCmd.bat"
