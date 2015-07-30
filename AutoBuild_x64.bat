@@ -1,5 +1,5 @@
 ::Configuration Settings
-set GeneratorName=Visual Studio 12 Win64
+set GeneratorName=Visual Studio 14 Win64
 set Platform=x64
 set SrcFolder=..\OgreDeps\src
 set BuildFolder=Win64Build
@@ -17,7 +17,6 @@ set Variables=-D OGREDEPS_BUILD_AMD_QBS=0 ^
 ::Less likely to need to change these.
 set ThisFolder=%~dp0
 set RootDependencyFolder=%ThisFolder%..\
-set BuildCommand="C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe" /m
 set CurrentDirectory=%CD%
 
 set BuildPath="%~dp0%BuildFolder%"
@@ -30,7 +29,7 @@ cd %BuildPath%
 
 cmake -G "%GeneratorName%" %Variables% %SrcPath%
 
-%BuildCommand% "%SolutionName%" /property:Configuration=Debug;Platform=%Platform%
-%BuildCommand% "%SolutionName%" /property:Configuration=Release;Platform=%Platform%
+msbuild.exe "%SolutionName%" /property:Configuration=Debug;Platform=%Platform%
+msbuild.exe "%SolutionName%" /property:Configuration=Release;Platform=%Platform%
 
 cd %CurrentDirectory%
