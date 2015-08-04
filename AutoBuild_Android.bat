@@ -29,7 +29,7 @@ set Variables=-D OGREDEPS_BUILD_AMD_QBS=0 ^
 -DANDROID_STL=gnustl_static ^
 -DANDROID_ABI=armeabi-v7a
 
-call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\Tools\VsDevCmd.bat"
+call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat"
 
 ::Acutal build process
 rmdir /s /q %BuildPath%
