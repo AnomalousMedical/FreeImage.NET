@@ -25,7 +25,7 @@ set Variables=-D OGREDEPS_BUILD_AMD_QBS=0 ^
 -DCMAKE_TOOLCHAIN_FILE=%SrcPath%\cmake\android.toolchain.cmake ^
 -DLIBRARY_OUTPUT_PATH_ROOT=%BuildPath% ^
 -DCMAKE_BUILD_TYPE=Release ^
--DANDROID_NATIVE_API_LEVEL=9 ^
+-DANDROID_NATIVE_API_LEVEL=19 ^
 -DANDROID_STL=gnustl_static ^
 -DANDROID_ABI=armeabi-v7a
 
