@@ -1,7 +1,8 @@
 ::Configuration Settings
-set GeneratorName=NMake Makefiles
+set GeneratorName=Visual Studio 14 ARM
 set SrcFolder=..\OgreDeps\src
 set BuildFolder=AndroidBuild
+set SolutionName=OGREDEPS.sln
 
 ::Less likely to need to change these.
 set ThisFolder=%~dp0
@@ -26,8 +27,9 @@ set Variables=-D OGREDEPS_BUILD_AMD_QBS=0 ^
 -DLIBRARY_OUTPUT_PATH_ROOT=%BuildPath% ^
 -DCMAKE_BUILD_TYPE=Release ^
 -DANDROID_NATIVE_API_LEVEL=19 ^
+-DCMAKE_GENERATOR_TOOLSET=Gcc_4_9 ^
 -DANDROID_STL=gnustl_static ^
--DANDROID_ABI=armeabi-v7a
+-DANDROID_ABI=armeabi-v7a with NEON
 
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat"
 
@@ -37,6 +39,10 @@ mkdir %BuildPath%
 cd %BuildPath%
 
 cmake -G "%GeneratorName%" %Variables% %SrcPath%
-nmake
+
+:: Small hack to fix the output file names since cmake cannot do this on its own for now
+%RootDependencyFolder%CMakeHacks.exe replace %BuildPath% *.vcxproj "<ObjectFileName>$(IntDir)</ObjectFileName>" "<ObjectFileName>$(IntDir)%%(filename).o</ObjectFileName>"
+
+msbuild.exe /m "%SolutionName%" /property:Configuration=Release
 
 cd %CurrentDirectory%
