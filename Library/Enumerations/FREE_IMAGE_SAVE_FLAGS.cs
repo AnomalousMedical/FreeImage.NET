@@ -186,6 +186,10 @@ namespace FreeImageAPI
 		/// <summary>
 		/// Save using JPEG compression.
 		/// </summary>
-		TIFF_JPEG = 0x8000
-	}
+		TIFF_JPEG = 0x8000,
+        /// <summary>
+        /// save webp in lossless mode
+        /// </summary>
+        WEBP_LOSSLESS = 0x100
+    }
 }
