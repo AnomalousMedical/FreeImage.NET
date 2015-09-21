@@ -42,6 +42,7 @@ cmake -G "%GeneratorName%" %Variables% %SrcPath%
 
 :: Small hack to fix the output file names since cmake cannot do this on its own for now
 %RootDependencyFolder%CMakeHacks.exe replace %BuildPath% *.vcxproj "<ObjectFileName>$(IntDir)</ObjectFileName>" "<ObjectFileName>$(IntDir)%%(filename).o</ObjectFileName>"
+%RootDependencyFolder%CMakeHacks.exe replace %BuildPath% *.vcxproj "-mfpu=vfpv3-d16" "-mfpu=neon"
 
 msbuild.exe /m "%SolutionName%" /property:Configuration=Release
 
