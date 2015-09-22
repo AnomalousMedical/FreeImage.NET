@@ -42,21 +42,25 @@ namespace FreeImageAPI
 {
 	public static partial class FreeImage
 	{
-		#region Constants
+        #region Constants
 
-		/// <summary>
-		/// Filename of the FreeImage library.
+        /// <summary>
+        /// Filename of the FreeImage library.
         /// </summary>
 #if STATIC_LINK
 		private const string FreeImageLibrary = "__Internal";
 #else
+#if DEBUG
+        private const string FreeImageLibrary = "FreeImage_d";
+#else
         private const string FreeImageLibrary = "FreeImage";
 #endif
+#endif
 
-		/// <summary>
-		/// Number of bytes to shift left within a 4 byte block.
-		/// </summary>
-		public const int FI_RGBA_RED = 2;
+        /// <summary>
+        /// Number of bytes to shift left within a 4 byte block.
+        /// </summary>
+        public const int FI_RGBA_RED = 2;
 
 		/// <summary>
 		/// Number of bytes to shift left within a 4 byte block.
