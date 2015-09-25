@@ -79,12 +79,12 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>none</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DefineConstants>STATIC_LINK</DefineConstants>
+    <DefineConstants>FULL_AOT_COMPILE;STATIC_LINK</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugAOT|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DebugAOT\</OutputPath>
-    <DefineConstants>DEBUG;STATIC_LINK</DefineConstants>
+    <DefineConstants>DEBUG;FULL_AOT_COMPILE;STATIC_LINK</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>bin\DebugAOT\FreeImageNET.XML</DocumentationFile>
     <NoWarn>419</NoWarn>
