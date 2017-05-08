@@ -42,7 +42,7 @@ namespace FreeImageAPI
 	/// The <b>FICOMPLEX</b> structure describes a color consisting of a real and an imaginary part.
 	/// Each part is using 4 bytes of data.
 	/// </summary>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct FICOMPLEX : IComparable, IComparable<FICOMPLEX>, IEquatable<FICOMPLEX>
 	{
 		/// <summary>

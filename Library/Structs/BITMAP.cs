@@ -67,7 +67,7 @@ namespace FreeImageAPI
 	/// Each device has a unique color format. To transfer a bitmap from one device to another,
 	/// use the <b>GetDIBits</b> and <b>SetDIBits</b> functions.
 	/// </remarks>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct BITMAP
 	{
 		/// <summary>

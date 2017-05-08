@@ -9,8 +9,7 @@ namespace FreeImageAPI
 	/// The <b>FI4BIT</b> structure represents the half of a <see cref="Byte"/>.
 	/// It's valuerange is between <i>0</i> and <i>15</i>.
 	/// </summary>
-	[DebuggerDisplay("{value}"),
-	Serializable]
+	[DebuggerDisplay("{value}")]
 	public struct FI4BIT
 	{
 		/// <summary>

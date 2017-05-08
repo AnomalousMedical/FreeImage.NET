@@ -79,7 +79,7 @@ namespace FreeImageAPI.IO
 	/// This way we can implement a <b>fi_handle</b> that works with managed an unmanaged
 	/// code.
 	/// </remarks>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct fi_handle : IComparable, IComparable<fi_handle>, IEquatable<fi_handle>, IDisposable
 	{
 		/// <summary>

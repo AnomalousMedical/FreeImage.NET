@@ -42,7 +42,7 @@ namespace FreeImageAPI.Plugins
 	/// <summary>
 	/// The structure contains functionpointers that make up a FreeImage plugin.
 	/// </summary>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct Plugin
 	{
 		/// <summary>

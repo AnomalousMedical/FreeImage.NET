@@ -9,8 +9,7 @@ namespace FreeImageAPI
 	/// The <b>FI1BIT</b> structure represents a single bit.
 	/// It's value can be <i>0</i> or <i>1</i>.
 	/// </summary>
-	[DebuggerDisplay("{value}"),
-	Serializable]
+	[DebuggerDisplay("{value}")]
 	public struct FI1BIT
 	{
 		/// <summary>

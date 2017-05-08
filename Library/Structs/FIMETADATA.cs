@@ -49,7 +49,7 @@ namespace FreeImageAPI
 	/// When the <b>FIMETADATA</b> handle is no longer used, it needs to be freed by the
 	/// <see cref="FreeImageAPI.FreeImage.FindCloseMetadata(FIMETADATA)"/> function.
 	/// </remarks>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct FIMETADATA : IComparable, IComparable<FIMETADATA>, IEquatable<FIMETADATA>
 	{
 		private IntPtr data;

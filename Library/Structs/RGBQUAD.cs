@@ -92,7 +92,7 @@ namespace FreeImageAPI
 	///	Color another = rgbq.Color;
 	/// </code>
 	/// </example>
-	[Serializable, StructLayout(LayoutKind.Explicit)]
+	[StructLayout(LayoutKind.Explicit)]
 	public struct RGBQUAD : IComparable, IComparable<RGBQUAD>, IEquatable<RGBQUAD>
 	{
 		/// <summary>

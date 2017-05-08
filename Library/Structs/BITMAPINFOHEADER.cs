@@ -47,7 +47,7 @@ namespace FreeImageAPI
 	/// <b>BITMAPINFOHEADER</b> structure and a color table to provide a complete
 	/// definition of the dimensions and colors of a DIB.
 	/// </remarks>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct BITMAPINFOHEADER : IEquatable<BITMAPINFOHEADER>
 	{
 		/// <summary>

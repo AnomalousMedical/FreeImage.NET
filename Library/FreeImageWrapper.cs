@@ -119,26 +119,26 @@ namespace FreeImageAPI
 		{
 			if (WrapperVersion == null)
 			{
-				try
-				{
-					object[] attributes = Assembly.GetAssembly(typeof(FreeImage))
-					.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false);
-					if ((attributes != null) && (attributes.Length != 0))
-					{
-						AssemblyFileVersionAttribute attribute =
-						attributes[0] as AssemblyFileVersionAttribute;
-						if ((attribute != null) && (attribute.Version != null))
-						{
-							return (WrapperVersion = new Version(attribute.Version));
-						}
-					}
-				}
-				catch
-				{
+				//try
+				//{
+    //                object[] attributes = typeof(FreeImage).GetTypeInfo().Assembly
+				//	.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false);
+				//	if ((attributes != null) && (attributes.Length != 0))
+				//	{
+				//		AssemblyFileVersionAttribute attribute =
+				//		attributes[0] as AssemblyFileVersionAttribute;
+				//		if ((attribute != null) && (attribute.Version != null))
+				//		{
+				//			return (WrapperVersion = new Version(attribute.Version));
+				//		}
+				//	}
+				//}
+				//catch
+				//{
 
-				}
+				//}
 
-				WrapperVersion = new Version();
+				WrapperVersion = new Version("1.0.0.0");
 			}
 
 			return WrapperVersion;
@@ -182,10 +182,6 @@ namespace FreeImageAPI
                     ((nativeVersion.Major == wrapperVersion.Major) && (nativeVersion.Minor == wrapperVersion.Minor) && (nativeVersion.Build >= wrapperVersion.Build));
             }
 			catch (DllNotFoundException)
-			{
-				return false;
-			}
-			catch (EntryPointNotFoundException)
 			{
 				return false;
 			}

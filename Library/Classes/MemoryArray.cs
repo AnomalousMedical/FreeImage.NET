@@ -16,7 +16,7 @@ namespace FreeImageAPI
 	/// Use <see cref="System.Int32"/> instead of <see cref="System.Boolean"/> and
 	/// <see cref="System.Byte"/> instead of <see cref="System.Char"/>.
 	/// </remarks>
-	public unsafe class MemoryArray<T> : IDisposable, ICloneable, ICollection, IEnumerable<T>, IEquatable<MemoryArray<T>> where T : struct
+	public unsafe class MemoryArray<T> : IDisposable, ICollection, IEnumerable<T>, IEquatable<MemoryArray<T>> where T : struct
 	{
 		/// <summary>
 		/// Baseaddress of the wrapped memory.

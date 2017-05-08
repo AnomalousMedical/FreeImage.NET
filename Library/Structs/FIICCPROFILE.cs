@@ -41,7 +41,7 @@ namespace FreeImageAPI
 	/// <summary>
 	/// This Structure contains ICC-Profile data.
 	/// </summary>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct FIICCPROFILE
 	{
 		private ICC_FLAGS flags;

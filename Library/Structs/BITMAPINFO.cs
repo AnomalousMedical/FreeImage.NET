@@ -60,7 +60,7 @@ namespace FreeImageAPI
 	/// Unless the application has exclusive use and control of the bitmap, the bitmap color table
 	/// should contain explicit RGB values.
 	/// </remarks>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct BITMAPINFO : IEquatable<BITMAPINFO>
 	{
 		/// <summary>

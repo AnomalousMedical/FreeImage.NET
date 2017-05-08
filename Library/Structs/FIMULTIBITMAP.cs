@@ -41,7 +41,7 @@ namespace FreeImageAPI
 	/// <summary>
 	/// The <b>FIMULTIBITMAP</b> structure is a handle to a FreeImage multipaged bimtap.
 	/// </summary>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct FIMULTIBITMAP : IComparable, IComparable<FIMULTIBITMAP>, IEquatable<FIMULTIBITMAP>
 	{
 		private IntPtr data;

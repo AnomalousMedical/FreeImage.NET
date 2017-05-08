@@ -96,7 +96,7 @@ namespace FreeImageAPI
 	///	Color another = firgb16.Color;
 	/// </code>
 	/// </example>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct FIRGB16 : IComparable, IComparable<FIRGB16>, IEquatable<FIRGB16>
 	{
 		/// <summary>

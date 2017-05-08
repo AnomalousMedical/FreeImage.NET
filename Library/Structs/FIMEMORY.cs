@@ -41,7 +41,7 @@ namespace FreeImageAPI
 	/// <summary>
 	/// The <b>FIMEMORY</b> structure is a handle to an opened memory stream.
 	/// </summary>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct FIMEMORY : IComparable, IComparable<FIMEMORY>, IEquatable<FIMEMORY>
 	{
 		private IntPtr data;

@@ -44,7 +44,7 @@ namespace FreeImageAPI.Metadata
 	/// <summary>
 	/// Manages metadata objects and operations.
 	/// </summary>
-	public sealed class MetadataTag : IComparable, IComparable<MetadataTag>, ICloneable, IEquatable<MetadataTag>, IDisposable
+	public sealed class MetadataTag : IComparable, IComparable<MetadataTag>, IEquatable<MetadataTag>, IDisposable
 	{
 		/// <summary>
 		/// The encapsulated FreeImage-tag.
@@ -407,7 +407,7 @@ namespace FreeImageAPI.Metadata
 						return null;
 					}
 
-					Array array = Array.CreateInstance(idList[Type], Count);
+					Array array = Array.CreateInstance(idList[Type], (int)Count);
 					void* src = (void*)FreeImage.GetTagValue(tag);
 					FreeImage.CopyMemory(array, src, Length);
 					return array;

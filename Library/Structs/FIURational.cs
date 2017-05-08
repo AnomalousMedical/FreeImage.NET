@@ -54,7 +54,7 @@ namespace FreeImageAPI
 	/// The structure can be converted into all .NET standard types either implicit or
 	/// explicit.
 	/// </remarks>
-	[Serializable, StructLayout(LayoutKind.Sequential), ComVisible(true)]
+	[StructLayout(LayoutKind.Sequential), ComVisible(true)]
 	public struct FIURational : IConvertible, IComparable, IFormattable, IComparable<FIURational>, IEquatable<FIURational>
 	{
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]

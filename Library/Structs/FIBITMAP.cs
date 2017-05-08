@@ -46,7 +46,7 @@ namespace FreeImageAPI
 	/// access to either a singlepage bitmap or exactly one page of
 	/// a multipage bitmap.
 	/// </remarks>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct FIBITMAP : IComparable, IComparable<FIBITMAP>, IEquatable<FIBITMAP>
 	{
 		private IntPtr data;

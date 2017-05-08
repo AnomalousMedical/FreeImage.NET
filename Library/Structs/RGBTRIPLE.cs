@@ -96,7 +96,7 @@ namespace FreeImageAPI
 	///	Color another = rgbt.Color;
 	/// </code>
 	/// </example>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct RGBTRIPLE : IComparable, IComparable<RGBTRIPLE>, IEquatable<RGBTRIPLE>
 	{
 		/// <summary>

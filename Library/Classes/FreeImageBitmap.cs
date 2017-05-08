@@ -37,11 +37,11 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
 using System.Collections;
 using System.Collections.Generic;
 using FreeImageAPI.Metadata;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace FreeImageAPI
 {
@@ -398,7 +398,7 @@ namespace FreeImageAPI
 		/// <param name="resource">The name of the resource.</param>
 		/// <exception cref="Exception">The operation failed.</exception>
 		public FreeImageBitmap(Type type, string resource)
-			: this(type.Module.Assembly.GetManifestResourceStream(type, resource))
+			: this(type.GetTypeInfo().Assembly.GetManifestResourceStream(resource))
 		{
 		}
 
@@ -691,36 +691,6 @@ namespace FreeImageAPI
 				throw new Exception(ErrorCreatingBitmap);
 			}
 			AddMemoryPressure();
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="FreeImageBitmap"/> class.
-		/// </summary>
-		/// <exception cref="Exception">The operation failed.</exception>
-		/// <exception cref="SerializationException">The operation failed.</exception>
-		public FreeImageBitmap(SerializationInfo info, StreamingContext context)
-		{
-			try
-			{
-				byte[] data = (byte[])info.GetValue("Bitmap Data", typeof(byte[]));
-				if ((data != null) && (data.Length > 0))
-				{
-					MemoryStream memory = new MemoryStream(data);
-					FREE_IMAGE_FORMAT format = FREE_IMAGE_FORMAT.FIF_TIFF;
-					dib = FreeImage.LoadFromStream(memory, ref format);
-
-					if (dib.IsNull)
-					{
-						throw new Exception(ErrorLoadingBitmap);
-					}
-
-					AddMemoryPressure();
-				}
-			}
-			catch (Exception ex)
-			{
-				throw new SerializationException("Deserialization failed.", ex);
-			}
 		}
 
 		/// <summary>

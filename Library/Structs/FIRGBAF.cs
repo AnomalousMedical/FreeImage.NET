@@ -93,7 +93,7 @@ namespace FreeImageAPI
 	///	Color another = firgbaf.Color;
 	/// </code>
 	/// </example>
-	[Serializable, StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct FIRGBAF : IComparable, IComparable<FIRGBAF>, IEquatable<FIRGBAF>
 	{
 		/// <summary>
