@@ -50,7 +50,7 @@ namespace FreeImageAPI
 #if STATIC_LINK
 		private const string FreeImageLibrary = "__Internal";
 #else
-#if DEBUG
+#if DEBUG && USE_DEBUG_NATIVE
         private const string FreeImageLibrary = "FreeImage_d";
 #else
         private const string FreeImageLibrary = "FreeImage";
