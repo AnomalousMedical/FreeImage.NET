@@ -356,11 +356,11 @@ namespace FreeImageAPI
         {
             if (filename == null)
             {
-                throw new ArgumentNullException("filename");
+                throw new ArgumentNullException(filename);
             }
             if (!File.Exists(filename))
             {
-                throw new FileNotFoundException("filename");
+                throw new FileNotFoundException(filename);
             }
 
             stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
